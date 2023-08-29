@@ -1,0 +1,142 @@
+First created 3 features file and t
+
+
+import time
+
+from behave import *
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+@given(u'I got navigate to Home page')
+def step_impl(context):
+    # print("Inside - I got navigate to Home page")
+    # raise NotImplementedError(u'STEP: Given I got navigate to Home page')
+    context.driver = webdriver.Chrome()
+    context.driver.maximize_window()
+    context.driver.get("https://tutorialsninja.com/demo/")
+    # time.sleep(5)
+    # context.driver.find_element(By.XPATH, "//span[text()='My Account']").click()
+    # context.driver.find_element(By.XPATH, "//a[text()='Login']").click()
+
+
+@when(u'I entered valid product into the search box field')
+def step_impl(context):
+    # print("Inside - I entered valid product into the search box field")
+    # raise NotImplementedError(u'STEP: when I entered valid product into the search box field')
+    # pass
+    context.driver.find_element(By.NAME, "search").send_keys("HP")
+    # time.sleep(5)
+
+
+@when(u'I click on Search button')
+def step_impl(context):
+    # print("Inside - I click on Search button")
+    # raise NotImplementedError(u'STEP: when I click on Search button')
+    # pass
+    context.driver.find_element(By.XPATH, "//div[@id='search']//button").click()
+    # time.sleep(5)
+
+
+@then(u'Valid product should get displayed in search results')
+def step_impl(context):
+    # print("Inside - Valid product should get displayed in search results")
+    # raise NotImplementedError(u'STEP: then Valid product should get displayed in search results')
+    # pass
+    # context.driver.find_element(By.XPATH,"//a[text()='HP LP3065']").is_displayed()
+    assert context.driver.find_element(By.LINK_TEXT, "HP LP3065").is_displayed()
+    # time.sleep(5)
+    context.driver.quit()
+
+
+@when(u'I entered Invalid product into the search box field')
+def step_impl(context):
+    # print("Inside - I entered Invalid product into the search box field")
+    # raise NotImplementedError(u'STEP: when I entered Invalid product into the search box field')
+    # pass
+    context.driver.find_element(By.NAME, "search").send_keys("HP1")
+
+@then(u'Proper message should be displayed in Search Results')
+def step_impl(context):
+    # print("Inside - Proper message should be displayed in Search Result")
+    # raise NotImplementedError(u'STEP: Proper message should be displayed in Search Results')
+    # pass
+    context.driver.find_element(By.NAME, "search").send_keys("HP1")
+
+@when(u'I dont enter anything into Search box field')
+def step_impl(context):
+    # print("Inside - I dont enter anything into Search box field")
+    # raise NotImplementedError(u'STEP: I dont enter anything into Search box field')
+    pass
+
+
+    $############ Another Dump #####################3
+    import time
+from datetime import datetime
+
+from behave import *
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+@given(u'I navigated to Login page')
+def step_impl(context):
+    context.driver = webdriver.Chrome()
+    context.driver.get("https://tutorialsninja.com/demo/")
+    context.driver.find_element(By.LINK_TEXT,"My Account").click()
+    context.driver.find_element(By.LINK_TEXT, "Login").click()
+    time.sleep(5)
+
+@when(u'I enter valid email address and valid password into the fields')
+def step_impl(context):
+    context.driver.find_element(By.NAME, "email").send_keys("abcd1234#@gmail.com")
+    context.driver.find_element(By.NAME, "password").send_keys("123456")
+
+
+@when(u'I click on Login button')
+def step_impl(context):
+    context.driver.find_element(By.XPATH, "//input[@type='submit']").click()
+    time.sleep(5)
+
+
+@then(u'I should get logged in')
+def step_impl(context):
+    assert context.driver.find_element(By.LINK_TEXT, "Edit your account information").is_displayed()
+    context.driver.quit()
+
+
+@when(u'I enter invalid email address and valid password into the fields')
+def step_impl(context):
+    time_stamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+    invalid_email = "anil"+time_stamp+"@gmail.com"
+    context.driver.find_element(By.NAME, "email").send_keys(invalid_email)
+    context.driver.find_element(By.NAME, "password").send_keys("123456")
+
+
+@when(u'I enter invalid anything into email and password the fields')
+def step_impl(context):
+    print("Inside - I enter invalid anything into email and password the fields")
+
+
+@then(u'I should get a proper warning message')
+def step_impl(context):
+    expected_warning_message = "Warning: No match for E-Mail Address and/or Password."
+    # assert context.driver.find_element(By.XPATH, "//div[@id='account-login']//div[text()='Warning: No match for "
+    #                                              "E-Mail Address and/or Password.']").text__eq__(expected_warning_message)
+    # actual_warning_message = context.driver.find_element(By.XPATH, "//div[@id='account-login']//div[text()='Warning: No match for "
+    #                                              "E-Mail Address and/or Password.']").text
+    assert context.driver.find_element(By.XPATH,"//div[@id='account-login']//div[1]").text.__contains__(expected_warning_message)
+    # if expected_warning_message.__eq__(actual_warning_message):
+    #     print("Both Message are same")
+    #     print(actual_warning_message)
+    #     print(expected_warning_message)
+
+
+@when(u'I enter valid email address and invalid password into the fields')
+def step_impl(context):
+    print("Inside - I enter valid email address and invalid password into the fields")
+
+
+@when(u'I enter invalid email address and invalid password into the fields')
+def step_impl(context):
+    print("Inside - I enter invalid email address and invalid password into the fields")
